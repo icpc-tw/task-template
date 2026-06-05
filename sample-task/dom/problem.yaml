@@ -1,0 +1,11 @@
+name: 'Beautiful Array'
+uuid: A
+author: DO NOT REVEAL YOUR INFORMATION
+source: The 2026 ICPC Asia Pacific Championship
+source_url: https://apac.icpc.global/
+license: permission
+rights_owner: Association of Taiwan Computer Programming Contest (TCPC)
+
+validation: custom
+limits:
+    memory: 1024

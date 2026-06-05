@@ -1,0 +1,194 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ICPC APAC 2026 Problemset Template: the main file.
+% Instruction: put this file outside the task folder sample-task/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[fleqn, 12pt, a4paper]{article}
+\usepackage{cmap}
+\pdfminorversion=6
+
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=40mm]{geometry}
+\setlength{\headheight}{25.25mm}
+\setlength{\headsep}{2mm}
+\setlength{\parindent}{0mm}
+\usepackage[compact]{titlesec}
+\usepackage{setspace}
+\setstretch{1.1}
+
+\usepackage{titling}
+\newcommand{\headingfont}{\fontfamily{phv}\selectfont\bfseries}
+\titleformat*{\section}{\Large\headingfont}
+\titleformat{\subsection}[block]{\vspace{2mm}\large\headingfont}{}{}{\vspace{2mm}}
+\titleformat*{\subsubsection}{\large\headingfont}
+\renewcommand{\maketitlehooka}{\headingfont}
+\title{The 2026 ICPC Asia Pacific Championship}
+
+\usepackage[
+			pdfencoding=auto,
+			pdftitle={\thetitle},
+            pdfcreator={}]{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+
+
+
+\usepackage{caption}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage[overlay, absolute]{textpos}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{xfp}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{trees}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+\usetikzlibrary{tikzmark}
+\usepackage{amsmath}
+
+
+
+
+
+
+\usepackage{fancyhdr}
+\newcommand\ProblemTitle{Placeholder}
+\fancypagestyle{document}{
+  \fancyhf{}
+  \fancyhead[C]{\includegraphics[width=1\textwidth]{header-cft.png}}
+  \lfoot{\textit{The 2026 ICPC Asia Pacific Championship Problem \Alph{pid}: \ProblemTitle}}
+  \rfoot{\thepage}
+}
+\renewcommand{\headrulewidth}{0pt}
+\addtolength{\topmargin}{-9.2119pt}
+\pagestyle{document}
+
+\usepackage{listings}
+\usepackage{mdframed}
+\lstset{basicstyle=\ttfamily, breaklines=false, frame=single, showlines=true}
+
+\usepackage{enumitem}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{changepage}
+\usepackage{parskip}
+\usepackage{times}
+
+\newcounter{pid}
+\newcounter{ncase}[pid]
+
+\newcommand{\ith}[1]{$#1^\text{th}$}
+\newcommand{\tightlist}{\setlength\itemsep{0mm}\setlength\parskip{0mm}}
+
+\newcommand{\testdata}[1]
+{
+	\stepcounter{ncase}
+	\IfFileExists{#1/dom/data/sample/\arabic{ncase}.in}
+    {
+    
+\def\COLS{2}
+% If the sample input / output is long, change COLS to 1.
+%\ifthenelse{\equal{#1}{E99}}{\def\COLS{1}}{}
+
+% Manually add \newpage at specified sample test case.
+%\ifthenelse{\equal{#1}{L50}}{\ifthenelse{\equal{\arabic{ncase}}{4}}{\newpage}{}}{}
+
+		\vspace{0mm}
+		\begin{paracol}{\COLS}
+      %\vspace*{2mm}
+			\subsection*{Sample Input \arabic{ncase}} \vspace{-1.5mm} \lstinputlisting{#1/dom/data/sample/\arabic{ncase}.in}
+
+			\switchcolumn
+      %\vspace*{2mm}
+			\subsection*{Sample Output \arabic{ncase}} \vspace{-1.5mm}	\lstinputlisting{#1/dom/data/sample/\arabic{ncase}.ans}
+		\end{paracol}
+    \IfFileExists{#1/dom/data/sample/\arabic{ncase}.hint.tex}{
+      \textbf{Explanation for Sample \arabic{ncase}:}
+      \input{#1/dom/data/sample/\arabic{ncase}.hint.tex}
+      \medskip
+    }{}
+		\testdata{#1}
+    }{}
+}
+
+\newcommand{\field}[4][1] % necessity, dir, field name, file name
+{
+	\ifthenelse{\equal{#1}{1}}
+	{
+		\subsection*{#3}\IfFileExists{#2/#4}{\input{#2/#4}}{}
+	}
+	{
+		\IfFileExists{#2/#4}{\subsection*{#3}\input{#2/#4}}{}
+	}
+}
+
+
+\newcommand{\problem}[4] % dir, title, time, memory
+{
+	\checkoddpage
+	\ifoddpage
+		% do nothing
+	\else
+		\begin{center}\vspace*{\fill}
+			{\large This page is intentionally left blank.}
+		\vspace*{\fill}\end{center}
+		\newpage
+	\fi
+
+	\stepcounter{pid}
+  \renewcommand\ProblemTitle{#2}
+    \vspace*{-5.5mm}
+    \begin{center}    
+		{\LARGE \fontfamily{phv}\selectfont Problem \Alph{pid}}\\[2mm]
+		{\LARGE \fontfamily{phv}\selectfont\bfseries #2}\\[0.7mm]
+    \fontfamily{phv}\selectfont
+		\begin{tabular}{r@{}c@{ }l}
+			Time limit&:& #3   \ifthenelse{\equal{#3}{1}}{second}{seconds}% special for problem K
+      \ifthenelse{\equal{#1}{K-00-2600}}{\\
+      Memory limit&:& #4 megabytes
+      }{}
+      %\\
+			%Memory limit&:& #4 \ifthenelse{\equal{#4}{1}}{megabyte}{megabytes}
+		\end{tabular}%
+    % Special Setting for headers.
+    \ifthenelse{\equal{#1}{K-00-2600}}{\\ {\color{red}{\fontshape{it}\selectfont Please note the unusual memory limit.}}
+      }{}
+	\end{center}
+
+	\field{#1}{Problem Description}{statement.tex}
+	\field{#1}{Input Format}{input.tex}
+	\field{#1}{Output Format}{output.tex}
+	\field{#1}{Technical Specification}{spec.tex}
+	\vspace{3mm}
+% Typesetting purpose: Add the line below if you want to manually add pagebreaks.
+%	\ifthenelse{\equal{#1}{E}}{\newpage}{}
+	\testdata{#1}
+% Typesetting purpose: Add the line below if you want to manually add pagebreaks.
+%	\ifthenelse{\equal{#1}{L}}{\newpage}{}
+	\newpage
+}
+
+\usepackage{layout}
+\begin{document}
+\abovedisplayshortskip=0pt
+\belowdisplayshortskip=0pt
+\abovedisplayskip=2pt
+\belowdisplayskip=2pt
+
+\newcommand{\includes}[1]{\IfFileExists{#1}{\input{#1}}{}}
+
+% Include the list of problems.
+\include{sample-task/problem.tex}
+
+
+\end{document}
